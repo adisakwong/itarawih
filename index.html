@@ -134,6 +134,8 @@
         
         <!-- {{info}} -->
         <center>
+        <!-- ถ้ากำหนดค่า juzselected ถึงจะแสดง -->
+        <h4 v-if="juzselected"> {{ 'Juz '+ juzselected}}</h4>
         <table border="0">
             <tbody>
                 <tr>  
@@ -188,7 +190,8 @@
                         surah_txt: null,
                         ayat_txt: null,
                         translate_txt: null, 
-                        nodata: true
+                        nodata: true,
+                        juzselected: null
                     }
                 },
                 methods: {
@@ -207,6 +210,7 @@
                         this.translate_txt = 'คำแปลหรือความหมาย'
 
                         this.nodata = false
+                        this.juzselected = juz
                         
                     }
                 }
