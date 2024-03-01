@@ -21,6 +21,15 @@
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <!-- <a href="#" class="nav-item nav-link">Group QR-Code</a> 
+                <a href="#" class="nav-item nav-link">QR-Code Count</a>  -->
+            </div>
+            <div class="navbar-nav ms-auto">             
+                <a href="about.html" class="nav-item nav-link">About</a>
+            </div>
+        </div>
     </div>
 </nav>
     
@@ -31,97 +40,98 @@
 <center> 
     <div id="app">
 
-        <div class="card">
-            <div class="card-body">
-                iTarawih<sup>&copy;</sup> : تراويح &nbsp;เป็นโปรแกรมที่จัดทำขึ้นสำหรับบุคคลที่ไม่เข้าใจภาษาอาหรับของอัลกุรอาน  
-                เพื่อใช้สำหรับอ่านทำความเข้าใจด้วยภาษาของตนเอง  
-                ให้รู้ใจความเนื้อหาตามความหมายของโองการ(Ayat)อัลกุรอาน ก่อนที่จะไปร่วมพิธีละหมาดตาราเวียฮ์(Tarawih)ที่มัสยิด 
-                ตลอดระยะเวลาของเดือนรอมฎอน โดยแบ่งเนื้อหาให้คลิกเลือกอ่านในแต่ละคืน 
-                เป็นบทหรือยุซ(Juz)ตามที่ระบุในอัลกุรอาน
-
-            </div>
-          </div>
        <br>
 
+       <div v-if="nodata"> <!-- แสดงเฉพาะเวลาไม่มีข้อมูล ถ้ามีข้อมูล จะไม่แสดง -->
+        <div class="row justify-content-md-center" >                     
+            <div class="col-md-auto" style=background-color:lightgray;>
+                <h4>คลิกเลือกยุซ(Juz)ที่ต้องการ</h4>
+            
+                 <p>
+                 <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(1)">&nbsp;Juz 1&nbsp;</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(2)">&nbsp;Juz 2&nbsp;</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(3)">&nbsp;Juz 3&nbsp;</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(4)">&nbsp;Juz 4&nbsp;</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(5)">&nbsp;Juz 5&nbsp;</button>
+                  </div>
+                 </p>
+                 <p>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(6)">&nbsp;Juz 6&nbsp;</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(7)">&nbsp;Juz 7&nbsp;</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(8)">&nbsp;Juz 8&nbsp;</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(9)">&nbsp;Juz 9&nbsp;</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(10)">Juz 10</button>
+                </div>
+            </p>
+            <p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(11)">Juz 11</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(12)">Juz 12</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(13)">Juz 13</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(14)">Juz 14</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(15)">Juz 15</button>
+                </div>
+            </p>
+            <p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(16)">Juz 16</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(17)">Juz 17</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(18)">Juz 18</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(19)">Juz 19</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(20)">Juz 20</button>
+                </div>
+            </p>
+            <p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(21)">Juz 21</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(22)">Juz 22</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(23)">Juz 23</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(24)">Juz 24</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(25)">Juz 25</button>
+                </div>
+            </p>
+            <p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(26)">Juz 26</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(27)">Juz 27</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(28)">Juz 28</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(29)">Juz 29</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(30)">Juz 30</button>
+                </div>
+             </p>
+            </div>
+            </div>
 
-        <table>
-            <tr><td> <!-- Row 1 -->
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(1)">&nbsp;Juz 1&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(2)">&nbsp;Juz 2&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(3)">&nbsp;Juz 3&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(4)">&nbsp;Juz 4&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(5)">&nbsp;Juz 5&nbsp;</button>
-            </td></tr>
-       
-            <tr><td> <!-- Row 2 -->
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(6)">&nbsp;Juz 6&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(7)">&nbsp;Juz 7&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(8)">&nbsp;Juz 8&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(9)">&nbsp;Juz 9&nbsp;</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(10)">Juz 10</button>
-            </td></tr>
-       
-            <tr><td> <!-- Row 3 -->
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(11)">Juz 11</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(12)">Juz 12</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(13)">Juz 13</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(14)">Juz 14</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(15)">Juz 15</button>
-            </td></tr>
-       
-            <tr><td> <!-- Row 4 -->
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(16)">Juz 16</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(17)">Juz 17</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(18)">Juz 18</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(19)">Juz 19</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(20)">Juz 20</button>
-            </td></tr>
-       
-            <tr><td> <!-- Row 5 -->
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(21)">Juz 21</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(22)">Juz 22</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(23)">Juz 23</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(24)">Juz 24</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(25)">Juz 25</button>
-            </td></tr>
-       
-            <tr><td> <!-- Row 6 -->
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(26)">Juz 26</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(27)">Juz 27</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(28)">Juz 28</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(29)">Juz 29</button>
-                &nbsp;
-                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(30)">Juz 30</button>
-            </td></tr>
-       
-        </table>
 
+       </div>
 
-
-        <br>
+        
         <!-- {{info}} -->
         <center>
         <table border="0">
@@ -132,12 +142,20 @@
                     <td><b>{{translate_txt}}</b></td>
                 </tr>
                 <tr v-for="row in info" >  
-                    <td>{{row.chapter }}</td>
-                    <td>{{row.verse}}.</td>
+                    <!--<td>{{row.chapter }}</td>
+                     <td>{{row.verse}}.</td> 
+                    <td>{{row.text}}</td>-->
                     
-                    <td>{{row.text}}</td>
-                    <!-- <td v-else>{{row.text}}<br><br></td> -->
-                    
+                    <!-- ตรวจสอบ เพื่อให้มีเว้นวรร ระหว่าง Surah -->
+                    <td v-if="row.verse == 1"><br>{{row.chapter}}.</td>
+                    <td v-else>{{row.chapter}}.</td>
+
+                    <td v-if="row.verse == 1"><br>{{row.verse}}.</td>
+                    <td v-else>{{row.verse}}.</td>
+
+                    <td v-if="row.verse == 1"><br>{{row.text}}.</td>
+                    <td v-else>{{row.text}}.</td>
+                                        
                    
                 </tr>
             </tbody>
@@ -152,7 +170,7 @@
 <br>
 <footer>
     <div class="row">
-        <font color=gray><center>
+        <font size=1 color=gray><center>
             <p><i class="fa-solid fa-mosque"></i>  iTarawih<sup>&copy;</sup> : تراويح  &nbsp;&nbsp;by KidmatApps, Copyright 2024 </p>
         </center></font> 
     </div>
@@ -168,8 +186,9 @@
                         info: null,
                         todayDate: new Date().toLocaleDateString(),
                         surah_txt: null,
-                        ayat_txt:null,
-                        translate_txt:null
+                        ayat_txt: null,
+                        translate_txt: null, 
+                        nodata: true
                     }
                 },
                 methods: {
@@ -186,6 +205,8 @@
                         this.surah_txt = 'Surah'
                         this.ayat_txt = 'Ayat'
                         this.translate_txt = 'คำแปลความหมาย'
+
+                        this.nodata = false
                         
                     }
                 }
