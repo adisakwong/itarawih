@@ -247,8 +247,20 @@
                         
                         this.surah_txt = 'Surah'
                         this.ayat_txt = 'Ayat'
-                        this.translate_txt = 'Translation'
-
+                        //this.translate_txt = 'Translation'
+                        if(selectLang =='Thai'){
+                            this.translate_txt = 'คำแปลภาษาไทย'
+                        }
+                        if(selectLang =='Malay'){ //use indonesian
+                            this.translate_txt = 'Terjemahan-Malaysia'
+                        }
+                        if(selectLang =='English'){
+                            this.translate_txt = 'English-Translation'
+                        }
+                        if(selectLang =='Arabic'){
+                            this.translate_txt = 'Original-Text'
+                        }
+                        
                         this.nodata = false
                         this.juzselected = juz
                         
