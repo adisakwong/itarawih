@@ -197,14 +197,7 @@
                         axios.get(surahURL)
                         .then(response => (this.surahinfo = response.data.chapter))
                         .then(response => (console.log(response)))
-                        .catch((error) => {
-                            //try to fix the error or
-                            //notify the users about somenthing went wrong
-                            /* console.log(error.message)
-                            alert('Error : Dont select any Surah...!') */
-                            window.location.href = 'surah.html'
-                        })
-                         
+                                                 
                         /////////////////
                         this.surah_txt = 'Surah'
                         this.ayat_txt = 'Ayat'
