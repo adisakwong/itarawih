@@ -1,0 +1,85 @@
+Way to dev Thai Quran App
+
+have the surah name(Arabic and English)
+and more detail
+===================
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/info.json
+
+exp:
+{
+    "verses": {
+        "count": 6236
+    },
+    "chapters": [
+            "chapter": 1,
+            "name": "Al-Faatiha",
+            "englishname": "The Opening",
+            "arabicname": "سُوْرَةُ الْفَاتِحَةِ",
+            "revelation": "Mecca",
+			"verses": [
+                {
+                    "verse": 1,
+                    "line": 1,
+			
+			
+
+Thai language
+==============
+Mininal
+=======
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc.min.json
+
+Full
+====
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc.json
+
+specific  in surah 5 vers 10
+=============================
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/5/10.json
+
+only surah 114
+==============
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/114.json
+
+only juz 29
+==============
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/juzs/29.json
+
+only page 49
+============
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/pages/49.json
+
+
+
+
+************/////////For Arabic Quran*******************************
+many fornt style --> please look at editions.json
+*************
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-qurandoorinonun.min.json
+
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak.json
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-qurandoorinonun.json
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-qurankhaledhosn.json
+//////////indonesia & malaysia///////////////
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ind-indonesianislam.json
+
+
+////////English by Talal Itani from book modern english pure////
+//many more
+
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/eng-talalaitaninewt.json
+
+
+**********************
+
+https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions.json
+"tha_kingfahadquranc": {
+        "name": "tha-kingfahadquranc",
+        "author": "King Fahad Quran Complex",
+        "language": "Thai",
+        "direction": "ltr",
+        "source": "http://tanzil.net",
+        "comments": "",
+        "link": "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc.json",
+        "linkmin": "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc.min.json"
+    },
