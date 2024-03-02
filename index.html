@@ -45,6 +45,20 @@
        <div v-if="nodata"> <!-- แสดงเฉพาะเวลาไม่มีข้อมูล ถ้ามีข้อมูล จะไม่แสดง -->
         <div class="row justify-content-md-center" >                     
             <div class="col-md-auto" style=background-color:lightgray;>
+
+                <div class="mb-.1">
+                    เลือกภาษา
+                </div>
+                <div class="btn-group btn-sm" role="group">
+                       <template v-for="lang in languages"><!--ไม่มี template แต่เขียนไว้แวน directive เฉยๆได้  -->
+                            <input type="radio" :id="lang.name" class="btn-check" 
+                            name="language" :value="lang.name"
+                            v-model="currentLang">
+                            <label :for="lang.name" class="btn btn-outline-dark btn-sm">
+                            {{lang.name}}</label>
+                       </template> 
+
+                </div>
                 <h4>คลิกเลือกยุซ(Juz)ที่ต้องการ</h4>
             
                  <p>
@@ -133,9 +147,9 @@
 
         
         <!-- {{info}} -->
-        <center>
-        <!-- ถ้ากำหนดค่า juzselected ถึงจะแสดง -->
-        <h4 v-if="juzselected"> {{ 'Juz '+ juzselected}}</h4>
+        <center> 
+            <!-- ถ้ากำหนดค่า juzselected ถึงจะแสดง -->
+           <h4 v-if="juzselected"> {{ 'Juz '+ juzselected}}</h4>
         <table border="0">
             <tbody>
                 <tr>  
@@ -185,21 +199,47 @@
                 el: '#app',
                 data () {
                     return {
+                        languages:[
+                            {name: 'Thai'},
+                            {name: 'Malay'},
+                            {name: 'English'},
+                            {name: 'Arabic'}
+                        ],
                         info: null,
                         todayDate: new Date().toLocaleDateString(),
                         surah_txt: null,
                         ayat_txt: null,
                         translate_txt: null, 
                         nodata: true,
-                        juzselected: null
+                        juzselected: null,
+                        currentLang: 'Thai',
+                        selectLang: '',
                     }
                 },
                 methods: {
                     sendRequest(juz) {
                         //const targetURL ='http://localhost/vue-study/backend/api_endpoint.php'
                         //const targetURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/juzs/30.json'
+                        
+                        const selectLang = this.currentLang;
+                        //alert(selectLang)
+                        if(selectLang =='Thai'){
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/juzs/'
+                        }
+                        if(selectLang =='Malay'){ //use indonesian
+                            
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ind-indonesianislam/juzs/'
+                        }
+                        if(selectLang =='English'){
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/eng-talalaitaninewt/juzs/'
+                        }
+                        if(selectLang =='Arabic'){
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak/juzs/'
+                        }
+                        
                         const selectJuz = juz + '.json'
-                        const targetURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/juzs/' + selectJuz
+                        const targetURL = rootpathURL + selectJuz
+                        //const targetURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/juzs/' + selectJuz
                     
                         axios.get(targetURL)
                         .then(response => (this.info = response.data.juzs))
@@ -207,7 +247,7 @@
                         
                         this.surah_txt = 'Surah'
                         this.ayat_txt = 'Ayat'
-                        this.translate_txt = 'คำแปลหรือความหมาย'
+                        this.translate_txt = 'Translation'
 
                         this.nodata = false
                         this.juzselected = juz
