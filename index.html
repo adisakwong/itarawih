@@ -26,7 +26,8 @@
                 <!-- <a href="#" class="nav-item nav-link">Group QR-Code</a> 
                 <a href="#" class="nav-item nav-link">QR-Code Count</a>  -->
             </div>
-            <div class="navbar-nav ms-auto">             
+            <div class="navbar-nav ms-auto">    
+                <a href="surah.html" class="nav-item nav-link">Surah</a>         
                 <a href="about.html" class="nav-item nav-link">About</a>
             </div>
         </div>
@@ -57,10 +58,10 @@
                             <label :for="lang.name" class="btn btn-outline-dark btn-sm">
                             {{lang.name}}</label>
                        </template> 
+
                 </div>
-                
-                <h4>Juz Selection</h4>
-            
+
+                <h5>Juz Selection</h5>
                  <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest(1)">&nbsp;Juz 1&nbsp;</button>
                         &nbsp;
@@ -147,8 +148,11 @@
         
         <!-- {{info}} -->
         <center> 
-            <!-- ถ้ากำหนดค่า juzselected ถึงจะแสดง -->
-           <h4 v-if="juzselected"> {{ 'Juz '+ juzselected}}</h4>
+        <!-- ถ้ากำหนดค่า juzselected ถึงจะแสดง -->
+        <h4 v-if="juzselected" style="background-color:#cdc0b0">
+            <a href="index.html"><i class="fa-solid fa-backward"></i></a> 
+            {{ 'Juz '+ juzselected}}
+        </h4>
         <table border="0">
             <tbody>
                 <tr>  
@@ -259,7 +263,7 @@
                         if(selectLang =='Arabic'){
                             this.translate_txt = 'Original-Text'
                         }
-                        
+
                         this.nodata = false
                         this.juzselected = juz
                         
