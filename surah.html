@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTarawih : تراويح</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body style='background-color:#fff8e5'>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-default" style="background-color:#113946">
+    <div class="container-fluid">
+        <a href="index.html" class="navbar-brand">
+        <i class="fa-solid fa-mosque"></i>
+        iTarawih<sup>&copy;</sup> : تراويح</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <!-- <a href="#" class="nav-item nav-link">Group QR-Code</a> 
+                <a href="#" class="nav-item nav-link">QR-Code Count</a>  -->
+            </div>
+            <div class="navbar-nav ms-auto">             
+                <a href="index.html" class="nav-item nav-link">Juz</a>
+                <a href="about.html" class="nav-item nav-link">About</a>
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    
+<div class="container">
+<br>
+<div class="row" style="text-align:center">
+<center> 
+    <div id="app">
+
+       <br>
+<!-- แสดงเฉพาะเวลาไม่มีข้อมูล ถ้ามีข้อมูล จะไม่แสดง -->
+       <div v-if="nodata"> 
+        
+          <div class="row justify-content-md-center" >                     
+            <div class="col-md-auto" style=background-color:lightgray;>
+
+                <div class="mb-.1">
+                    Language Selection
+                </div>
+                <div class="btn-group btn-sm" role="group">
+                       <template v-for="lang in languages"><!--ไม่มี template แต่เขียนไว้แวน directive เฉยๆได้  -->
+                            <input type="radio" :id="lang.name" class="btn-check" 
+                            name="language" :value="lang.name"
+                            v-model="currentLang">
+                            <label :for="lang.name" class="btn btn-outline-dark btn-sm">
+                            {{lang.name}}</label>
+                       </template> 
+
+                </div>
+
+               <h4>Surah Selection</h4>
+               <select id="selectSurah" class="form-select" v-model="surahnumber">
+                    <option v-for="row in info" :value="row.chapter">
+                        {{row.chapter}}. {{row.name}} - {{row.arabicname}}
+                    </option>
+                
+               </select>
+                <br> 
+                <button type="button" class="btn btn-sm btn-secondary" v-on:click="sendRequest()">&nbsp;Display Surah&nbsp;</button>
+                <br>
+                <br>
+            </div>
+            </div>
+
+       </div> <!-- nodata = true ค่า default -->
+       
+        <!-- 
+        {{quraninfo}}
+        <br>       
+        {{surahname_eng}} - {{surahname_arab}}
+        <br>
+        {{numberofayat}}
+        <br> -->
+
+        <h5 v-if="surahselected" style="background-color:#cdc0b0"> 
+            <a href="surah.html"><i class="fa-solid fa-backward"></i></a>
+            {{ 'Surah '+ surahselected }} [ {{quraninfo.englishName}} - {{quraninfo.name}} ]
+        </h5>
+        <table border="0">
+            <tbody>
+                <tr>  
+                    <td><b>{{surah_txt}}&nbsp;</b></td>
+                    <td><b>{{ayat_txt}}&nbsp;</b></td>
+                    <td><b>{{translate_txt}}</b></td>
+                </tr>
+                <tr v-for="row in surahinfo" >  
+                    <td>{{row.chapter}}.</td>
+                    <td>{{row.verse}}.</td>
+                    <td>{{row.text}}.</td>
+                </tr>
+            </tbody>
+        </table> 
+        
+    </div>
+
+</center>  
+</div><!-- row -->
+<br>
+<br>
+<br>
+<footer>
+    <div class="row">
+        <font size=1 color=gray><center>
+            <p><i class="fa-solid fa-mosque"></i>  iTarawih<sup>&copy;</sup> : تراويح  &nbsp;&nbsp;by KidmatApps, Copyright 2024 </p>
+        </center></font> 
+    </div>
+</footer>
+</div><!-- container -->
+
+<!-- ///////////////////////VUE.JS/////////////////////// -->
+    <script>
+          new Vue({
+                el: '#app',
+                data () {
+                    return {
+                        languages:[
+                            {name: 'Thai'},
+                            {name: 'Malay'},
+                            {name: 'English'},
+                            {name: 'Arabic'}
+                        ],
+                        info: null,
+                        quraninfo: null,
+                        surahinfo: null,
+                        todayDate: new Date().toLocaleDateString(),
+                        surah_txt: null,
+                        ayat_txt: null,
+                        translate_txt: null, 
+                        nodata: true,
+                        surahselected: null,
+                        currentLang: 'Thai',
+                        selectLang: '',
+                        surahnumber: null,
+                        surahname_eng: null,
+                        surahname_arab: null,
+                        numberofayat: null
+                    }
+                },
+                mounted () {
+                                          
+                        const targetURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/info.json'
+                    
+                        axios.get(targetURL)
+                        .then(response => (this.info = response.data.chapters))
+                        .then(response => (console.log(response)))
+
+                },
+                methods: {
+                    sendRequest() {
+                        //alert(this.surahnumber)
+                       const sn = this.surahnumber - 1
+                       //////รับค่าทั่วไปของกุรอาน ////
+                        const quranURL ='http://api.alquran.cloud/v1/surah'
+                    
+                        axios.get(quranURL)
+                        .then(response => (this.quraninfo = response.data.data[sn], 
+                                           this.surahname_arab = response.data.data[sn].name,
+                                           this.surahname_eng = response.data.data[sn].englishName,
+                                           this.numberofayat = response.data.data[sn].numberOfAyahs
+                                        ))
+                        .then(response => (console.log(response)))
+                      /////end รับค่าทั่วไปของกุรอาน   
+
+                      const selectLang = this.currentLang;
+                        //alert(selectLang)
+                        if(selectLang =='Thai'){
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/tha-kingfahadquranc/'
+                        }
+                        if(selectLang =='Malay'){ //use indonesian
+                            
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ind-indonesianislam/'
+                        }
+                        if(selectLang =='English'){
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/eng-talalaitaninewt/'
+                        }
+                        if(selectLang =='Arabic'){
+                            rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-qurankhaledhosn/'
+                        }
+                        
+                        const selectSurah = this.surahnumber + '.json'
+                        const surahURL = rootpathURL + selectSurah
+                        //alert(surahURL)
+                        axios.get(surahURL)
+                        .then(response => (this.surahinfo = response.data.chapter))
+                        .then(response => (console.log(response)))
+                        .catch((error) => {
+                            //try to fix the error or
+                            //notify the users about somenthing went wrong
+                            /* console.log(error.message)
+                            alert('Error : Dont select any Surah...!') */
+                            window.location.href = 'surah.html'
+                        })
+                         
+                        /////////////////
+                        this.surah_txt = 'Surah'
+                        this.ayat_txt = 'Ayat'
+                        //this.translate_txt = 'Translation'
+                        if(selectLang =='Thai'){
+                            this.translate_txt = 'คำแปลภาษาไทย'
+                        }
+                        if(selectLang =='Malay'){ //use indonesian
+                            this.translate_txt = 'Terjemahan-Malaysia'
+                        }
+                        if(selectLang =='English'){
+                            this.translate_txt = 'English-Translation'
+                        }
+                        if(selectLang =='Arabic'){
+                            this.translate_txt = 'Original-Text'
+                        }
+
+                        this.nodata = false  //==>ไม่ปิดเมนู
+                        this.surahselected = this.surahnumber
+                    } 
+                }
+                })
+    </script>
+</body>
+</html>
