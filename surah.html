@@ -49,15 +49,24 @@
             <div class="col-md-auto" style=background-color:lightgray;>
 
                 <div class="mb-.1">
-                    Language Selection
+                    Quran & Translation Languages
                 </div>
                 <div class="btn-group btn-sm" role="group">
                        <template v-for="lang in languages"><!--ไม่มี template แต่เขียนไว้แวน directive เฉยๆได้  -->
+                           <div v-if="lang.name =='Quran'">  
+                            <input type="radio" :id="lang.name" class="btn-check" 
+                             name="language" :value="lang.name"
+                             v-model="currentLang">
+                             <label :for="lang.name" class="btn btn-outline-primary btn-sm"><b>{{lang.name}}</b></label>
+                             &nbsp;&nbsp;
+                           </div> 
+
+                           <div v-if="lang.name !='Quran'"> 
                             <input type="radio" :id="lang.name" class="btn-check" 
                             name="language" :value="lang.name"
                             v-model="currentLang">
-                            <label :for="lang.name" class="btn btn-outline-dark btn-sm">
-                            {{lang.name}}</label>
+                            <label :for="lang.name" class="btn btn-outline-dark btn-sm">{{lang.name}}</label>
+                          </div>  
                        </template> 
 
                 </div>
@@ -98,9 +107,9 @@
                     <td><b>{{translate_txt}}</b></td>
                 </tr>
                 <tr v-for="row in surahinfo" >  
-                    <td>{{row.chapter}}.</td>
-                    <td>{{row.verse}}.</td>
-                    <td>{{row.text}}.</td>
+                    <td>{{row.chapter}}</td>
+                    <td>{{row.verse}}</td>
+                    <td>{{row.text}}</td>
                 </tr>
             </tbody>
         </table> 
@@ -128,10 +137,10 @@
                 data () {
                     return {
                         languages:[
-                            {name: 'Thai'},
-                            {name: 'Malay'},
+                            {name: 'Quran'},
                             {name: 'English'},
-                            {name: 'Arabic'}
+                            {name: 'Thai'},
+                            {name: 'Malay'}
                         ],
                         info: null,
                         quraninfo: null,
@@ -196,7 +205,7 @@
                         if(selectLang =='English'){
                             rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/eng-talalaitaninewt/'
                         }
-                        if(selectLang =='Arabic'){
+                        if(selectLang =='Quran'){
                             rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-qurankhaledhosn/'
                         }
                         
@@ -221,8 +230,8 @@
                         if(selectLang =='English'){
                             this.translate_txt = 'English-Translation'
                         }
-                        if(selectLang =='Arabic'){
-                            this.translate_txt = 'Original-Text'
+                        if(selectLang =='Quran'){
+                            this.translate_txt = 'Quran-Vers'
                         }
 
                         this.nodata = false  //==>ไม่ปิดเมนู
