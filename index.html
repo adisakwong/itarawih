@@ -27,7 +27,7 @@
                 <a href="#" class="nav-item nav-link">QR-Code Count</a>  -->
             </div>
             <div class="navbar-nav ms-auto">    
-                <a href="surah.html" class="nav-item nav-link">Surah</a>         
+                <a href="surah.html" class="nav-item nav-link">Surah-Selection</a>         
                 <a href="about.html" class="nav-item nav-link">About</a>
             </div>
         </div>
@@ -47,19 +47,35 @@
         <div class="row justify-content-md-center" >                     
             <div class="col-md-auto" style=background-color:lightgray;>
 
+                
                 <div class="mb-.1">
-                    Language Selection
+                    Quran & Translation Languages
                 </div>
-                <div class="btn-group btn-sm" role="group">
+                
+
+                 <div class="btn-group btn-sm" role="group">
+                       
+
                        <template v-for="lang in languages"><!--ไม่มี template แต่เขียนไว้แวน directive เฉยๆได้  -->
+                          <div v-if="lang.name =='Quran'">  
+                           <input type="radio" :id="lang.name" class="btn-check" 
+                            name="language" :value="lang.name"
+                            v-model="currentLang">
+                            <label :for="lang.name" class="btn btn-outline-primary btn-sm"><b>{{lang.name}}</b></label>
+                            &nbsp;&nbsp;
+                        </div> 
+                          
+                          <div v-if="lang.name !='Quran'"> 
+                            
                             <input type="radio" :id="lang.name" class="btn-check" 
                             name="language" :value="lang.name"
                             v-model="currentLang">
-                            <label :for="lang.name" class="btn btn-outline-dark btn-sm">
-                            {{lang.name}}</label>
+                            <label :for="lang.name" class="btn btn-outline-dark btn-sm">{{lang.name}}</label>
+                           
+                          </div>  
                        </template> 
 
-                </div>
+              </div> 
 
                 <h5>Juz Selection</h5>
                  <div class="btn-group">
@@ -150,7 +166,7 @@
         <center> 
         <!-- ถ้ากำหนดค่า juzselected ถึงจะแสดง -->
         <h4 v-if="juzselected" style="background-color:#cdc0b0">
-            <a href="index.html"><i class="fa-solid fa-backward" style="color:black"></i></a> 
+            <a href="index.html"><i class="fa-solid fa-backward"></i></a> 
             {{ 'Juz '+ juzselected}}
         </h4>
         <table border="0">
@@ -166,14 +182,14 @@
                     <td>{{row.text}}</td>-->
                     
                     <!-- ตรวจสอบ เพื่อให้มีเว้นวรร ระหว่าง Surah -->
-                    <td v-if="row.verse == 1"><br>{{row.chapter}}.</td>
-                    <td v-else>{{row.chapter}}.</td>
+                    <td v-if="row.verse == 1"><br>{{row.chapter}}</td>
+                    <td v-else>{{row.chapter}}</td>
 
-                    <td v-if="row.verse == 1"><br>{{row.verse}}.</td>
-                    <td v-else>{{row.verse}}.</td>
+                    <td v-if="row.verse == 1"><br>{{row.verse}}</td>
+                    <td v-else>{{row.verse}}</td>
 
-                    <td v-if="row.verse == 1"><br>{{row.text}}.</td>
-                    <td v-else>{{row.text}}.</td>
+                    <td v-if="row.verse == 1"><br>{{row.text}}</td>
+                    <td v-else>{{row.text}}</td>
                                         
                    
                 </tr>
@@ -203,10 +219,10 @@
                 data () {
                     return {
                         languages:[
-                            {name: 'Thai'},
-                            {name: 'Malay'},
+                            {name: 'Quran'},
                             {name: 'English'},
-                            {name: 'Arabic'}
+                            {name: 'Thai'},
+                            {name: 'Malay'}
                         ],
                         info: null,
                         todayDate: new Date().toLocaleDateString(),
@@ -236,7 +252,7 @@
                         if(selectLang =='English'){
                             rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/eng-talalaitaninewt/juzs/'
                         }
-                        if(selectLang =='Arabic'){
+                        if(selectLang =='Quran'){
                             rootpathURL ='https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-qurankhaledhosn/juzs/'
                         }
                         
@@ -260,8 +276,8 @@
                         if(selectLang =='English'){
                             this.translate_txt = 'English-Translation'
                         }
-                        if(selectLang =='Arabic'){
-                            this.translate_txt = 'Original-Text'
+                        if(selectLang =='Quran'){
+                            this.translate_txt = 'Quran-Vers'
                         }
 
                         this.nodata = false
